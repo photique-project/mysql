@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: EC2 연결 및 도커컴포즈 실행
+      - name: EC2 연결 및 MySQL 이미지 실행
         uses: appleboy/ssh-action@master 
         with:
           username: ubuntu
