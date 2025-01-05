@@ -23,7 +23,6 @@ jobs:
             sudo docker pull mysql:9.0.1
             sudo docker run -d \
                 --name mysql-dev \
-                --network backend \
                 -e MYSQL_DATABASE=${{ secrets.DATABASE_NAME_DEV }} \
                 -e MYSQL_ROOT_PASSWORD=${{ secrets.ROOT_PASSWORD_DEV }} \
                 -e TZ=Asia/Seoul \
