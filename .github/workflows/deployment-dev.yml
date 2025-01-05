@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: EC2 연결 및 도커컴포즈 실행
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@master 
         with:
           username: ubuntu
           host: ${{ secrets.HOST_DEV }}
