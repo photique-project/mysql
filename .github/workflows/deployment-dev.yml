@@ -10,19 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: EC2 연결 및 도커컴포즈 실행
+      - name: EC2 연결 및 MySQL 이미지 실행
         uses: appleboy/ssh-action@master 
         with:
           username: ubuntu
           host: ${{ secrets.HOST_DEV }}
           key: ${{ secrets.KEY }}
           script: |
-            sudo docker stop mysql
-            sudo docker rm mysql
+            sudo docker stop mysql-dev
+            sudo docker rm mysql-dev
             sudo docker rmi mysql:9.0.1
             sudo docker pull mysql:9.0.1
             sudo docker run -d \
-                --name mysql \
+                --name mysql-dev \
+                --network backend \
                 -e MYSQL_DATABASE=${{ secrets.DATABASE_NAME_DEV }} \
                 -e MYSQL_ROOT_PASSWORD=${{ secrets.ROOT_PASSWORD_DEV }} \
                 -e TZ=Asia/Seoul \
