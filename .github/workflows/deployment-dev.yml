@@ -24,11 +24,14 @@ jobs:
             sudo docker run -d \
                 --name mysql-dev \
                 --network backend \
+                --restart=always \
                 -e MYSQL_DATABASE=${{ secrets.DATABASE_NAME_DEV }} \
                 -e MYSQL_ROOT_PASSWORD=${{ secrets.ROOT_PASSWORD_DEV }} \
                 -e TZ=Asia/Seoul \
                 -p 3306:3306 \
                 -v /home/ubuntu/mysql:/var/lib/mysql \
                 mysql:8.0 \
-                --character-set-server=utf8mb4 \
-                --collation-server=utf8mb4_general_ci
+                --character-set-client=utf8mb4 \
+                --character-set-connection=utf8mb4 \
+                --character-set-results=utf8mb4
+                
