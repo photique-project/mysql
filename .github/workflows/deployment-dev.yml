@@ -31,7 +31,7 @@ jobs:
                 -p 3306:3306 \
                 -v /home/ubuntu/mysql:/var/lib/mysql \
                 mysql:8.0 \
-                --character-set-client=utf8mb4 \
-                --character-set-connection=utf8mb4 \
-                --character-set-results=utf8mb4
+                --character-set-server=utf8mb4 \
+                --collation-server=utf8mb4_unicode_ci \
+                --skip-character-set-client-handshake 
                 
