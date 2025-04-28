@@ -1,0 +1,37 @@
+name: 프로덕트 서버 MySQL 배포
+
+on:
+  pull_request:
+    branches:
+      - release
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: EC2 연결 및 MySQL 이미지 실행
+        uses: appleboy/ssh-action@master 
+        with:
+          username: photique0538
+          host: ${{ secrets.HOST_PROD }}
+          key: ${{ secrets.KEY_PROD }}
+          script: |
+            sudo docker stop mysql-prod
+            sudo docker rm mysql-prod
+            sudo docker rmi mysql:8.0
+            sudo docker pull mysql:8.0
+            sudo docker run -d \
+                --name mysql-prod \
+                --network backend \
+                --restart=always \
+                -e MYSQL_DATABASE=${{ secrets.DATABASE_NAME_DEV }} \
+                -e MYSQL_ROOT_PASSWORD=${{ secrets.ROOT_PASSWORD_DEV }} \
+                -e TZ=Asia/Seoul \
+                -p 3306:3306 \
+                -v /home/ubuntu/mysql:/var/lib/mysql \
+                mysql:8.0 \
+                --character-set-server=utf8mb4 \
+                --collation-server=utf8mb4_unicode_ci \
+                --skip-character-set-client-handshake 
+                
