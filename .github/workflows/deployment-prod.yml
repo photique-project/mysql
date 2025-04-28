@@ -13,7 +13,7 @@ jobs:
       - name: EC2 연결 및 MySQL 이미지 실행
         uses: appleboy/ssh-action@master 
         with:
-          username: ubuntu
+          username: photique0538
           host: ${{ secrets.HOST_PROD }}
           key: ${{ secrets.KEY_PROD }}
           script: |
